@@ -11,6 +11,9 @@
 
 #include <toml.hpp>
 
+#include "ICEConfig.h"
+#include "SignalerConfig.h"
+
 namespace mocast {
 
 	/**
@@ -27,24 +30,14 @@ namespace mocast {
 		std::vector<std::string> IceServers() const;
 		/// Return the signaling server url
 		inline std::string_view ServerURL() const { return endpoint_; }
-		inline std::string_view LocalID() const { return localID_; }
-		inline std::string_view RemoteID() const { return remoteID_; }
-		inline const std::vector<std::string>& ICEServers() const { return iceServers_; }
+		inline std::string_view LocalID() const { return signaler_.local; }
+		inline std::string_view RemoteID() const { return signaler_.remote; }
+		inline const std::vector<std::string>& ICEServers() const { return ice_.urls; }
 	protected:
-		/// List of ICE servers
-		std::vector<std::string> iceServers_ = {};
-		/// IP address of signaling server
-		std::string serverIP_ {"127.0.0.1"};
-		/// Port of signaling server
-		std::string serverPort_ {"8000"};
-		/// ID of local (operator) device
-		std::string localID_ {"local"};
-		/// ID of remote (teleoperated) device
-		std::string remoteID_ {"remote"};
 		/// Signaling server endpoint
 		std::string endpoint_;
-		/// Whether websockets should use secure layer
-		bool useSSL_ = false;
+		SignalerConfig signaler_;
+		ICEConfig ice_;
 	};
 }
 

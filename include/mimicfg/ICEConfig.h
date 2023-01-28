@@ -15,5 +15,11 @@ namespace mocast {
 	 */
 	struct ICEConfig {
 		std::vector<std::string> urls;
+
+		void from_toml(const toml::value& v) {
+			this->urls = toml::find_or<std::vector<std::string>>(v, "urls", {});
+		}
 	};
 }
+
+#endif
