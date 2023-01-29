@@ -21,6 +21,10 @@ namespace mocast {
 	 */
 	class BaseConfig {
 	public:
+		BaseConfig() {
+			signaler_ = SignalerConfig();
+			ice_ = ICEConfig();
+		}
 		/**
 		 * @brief Read a TOML table and parse configuration parameters
 		 * @param table A `toml::value` containing the config parameters
