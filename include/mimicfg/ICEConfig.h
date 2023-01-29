@@ -14,10 +14,11 @@ namespace mocast {
 	 * @brief TOML conversion of ICE server config.
 	 */
 	struct ICEConfig {
-		std::vector<std::string> urls;
+		std::vector<std::string> urls = {};
 
 		void from_toml(const toml::value& v) {
-			this->urls = toml::find_or<std::vector<std::string>>(v, "urls", {});
+			this->urls = toml::find<std::vector<std::string>>(v, "urls");
+			return;
 		}
 	};
 }

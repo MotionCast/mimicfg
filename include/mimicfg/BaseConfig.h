@@ -21,21 +21,21 @@ namespace mocast {
 	 */
 	class BaseConfig {
 	public:
-		BaseConfig() {}
 		/**
 		 * @brief Read a TOML table and parse configuration parameters
 		 * @param table A `toml::value` containing the config parameters
 		 */
-		BaseConfig(toml::value table);
-		std::vector<std::string> IceServers() const;
+		BaseConfig(toml::value table) {
+			signaler_ = toml::find_or<SignalerConfig>(table, "signaling", SignalerConfig());
+			ice_ = toml::find_or<ICEConfig>(table, "ice", ICEConfig());
+		}
+
 		/// Return the signaling server url
-		inline std::string_view ServerURL() const { return endpoint_; }
-		inline std::string_view LocalID() const { return signaler_.local; }
-		inline std::string_view RemoteID() const { return signaler_.remote; }
-		inline const std::vector<std::string>& ICEServers() const { return ice_.urls; }
+		std::string& ServerURL() { return signaler_.endpoint; }
+		std::string& LocalID() { return signaler_.local; }
+		std::string& RemoteID() { return signaler_.remote; }
+		std::vector<std::string>& ICEServers() { return ice_.urls; }
 	protected:
-		/// Signaling server endpoint
-		std::string endpoint_;
 		SignalerConfig signaler_;
 		ICEConfig ice_;
 	};

@@ -1,20 +1,19 @@
 ### LIST FILES
 set(
-	MIMICFG_SOURCES
-	${CMAKE_CURRENT_SOURCE_DIR}/BaseConfig.cpp
-)
-
-set(
 	MIMICFG_HEADERS
 	${PROJECT_SOURCE_DIR}/include/mimicfg/FileConfig.h
-	${PROJECT_SOURCE_DIR}/include/mimicfg/StrConfig.h
 	${PROJECT_SOURCE_DIR}/include/mimicfg/BaseConfig.h
+	${PROJECT_SOURCE_DIR}/include/mimicfg/ICEConfig.h
+	${PROJECT_SOURCE_DIR}/include/mimicfg/SignalerConfig.h
 )
 
 ### TARGET
 # Provide STATIC and SHARED targets
-add_library(mimicfg-static STATIC ${MIMICFG_SOURCES})
-add_library(mimicfg-shared SHARED ${MIMICFG_SOURCES})
+add_library(mimicfg-static INTERFACE)
+add_library(mimicfg-shared INTERFACE)
+
+set_target_properties(mimicfg-static PROPERTIES LINKER_LANGUAGE CXX)
+set_target_properties(mimicfg-shared PROPERTIES LINKER_LANGUAGE CXX)
 
 ### HEADERS
 
@@ -22,37 +21,23 @@ add_library(mimicfg-shared SHARED ${MIMICFG_SOURCES})
 # Including headers in other projects (PUBLIC) require `mimicfg` prefix
 target_include_directories(
 	mimicfg-static
-	PUBLIC
+	INTERFACE
 	$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
 	$<INSTALL_INTERFACE:include>
 )
 
-# Include headers in library (PRIVATE) without prefixing with `mimicfg`
-target_include_directories(
-	mimicfg-static
-	PRIVATE
-	${PROJECT_SOURCE_DIR}/include/mimicfg
-)
-
-target_compile_features(mimicfg-static PUBLIC cxx_std_17)
+target_compile_features(mimicfg-static INTERFACE cxx_std_17)
 
 ## SHARED
 # Including headers in other projects (PUBLIC) require `mimicfg` prefix
 target_include_directories(
 	mimicfg-shared
-	PUBLIC
+	INTERFACE
 	$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
 	$<INSTALL_INTERFACE:include>
 )
 
-# Include headers in library (PRIVATE) without prefixing with `mimicfg`
-target_include_directories(
-	mimicfg-shared
-	PRIVATE
-	${PROJECT_SOURCE_DIR}/include/mimicfg
-)
-
-target_compile_features(mimicfg-shared PUBLIC cxx_std_17)
+target_compile_features(mimicfg-shared INTERFACE cxx_std_17)
 
 ### DEPENDENCIES
 if(USE_TOML11)
@@ -68,8 +53,8 @@ if(USE_TOML11)
 	FetchContent_MakeAvailable(toml11)
 
 	# Save time by not compiling tests and examples
-	target_link_libraries(mimicfg-static PUBLIC toml11)
-	target_link_libraries(mimicfg-shared PUBLIC toml11)
+	target_link_libraries(mimicfg-static INTERFACE toml11)
+	target_link_libraries(mimicfg-shared INTERFACE toml11)
 endif()
 
 ### INSTALL
