@@ -4,6 +4,7 @@ set(
 	${PROJECT_SOURCE_DIR}/include/mimicfg/FileConfig.h
 	${PROJECT_SOURCE_DIR}/include/mimicfg/BaseConfig.h
 	${PROJECT_SOURCE_DIR}/include/mimicfg/ICEConfig.h
+	${PROJECT_SOURCE_DIR}/include/mimicfg/KalmanConfig.h
 	${PROJECT_SOURCE_DIR}/include/mimicfg/SignalerConfig.h
 )
 
