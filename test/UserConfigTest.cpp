@@ -55,3 +55,44 @@ TEST(UserConfigTest, BasicKalmanConfig) {
 	EXPECT_EQ(0.31415, config.MeasurementNoise()[1]);
 	EXPECT_EQ(0, config.EstimateError()[2]);
 }
+
+TEST(UserConfigTest, BasicNodesConfig) {
+	auto config = BaseConfig(u8R"(
+		[[nodes]]
+		id = 0
+		parent = 0
+		name = "ROOT"
+
+		[[nodes]]
+		id = 1
+		parent = 0
+		name = "RARM"
+
+		[[nodes]]
+		id = 2
+		parent = 1
+		name = "RHAND"
+
+		[[nodes]]
+		id = 3
+		parent = 0
+		name = "LARM"
+
+		[[nodes]]
+		id = 4
+		parent = 3
+		name = "LHAND"
+	)"_toml);
+
+	EXPECT_EQ("ROOT", config.GetNode().name);
+	EXPECT_EQ("RARM", config.GetNode(1).name);
+	EXPECT_EQ("RHAND", config.GetNode(2).name);
+	EXPECT_EQ("LARM", config.GetNode(3).name);
+	EXPECT_EQ("LHAND", config.GetNode(4).name);
+
+	EXPECT_EQ(0, config.GetNode().parent);
+	EXPECT_EQ(0, config.GetNode(1).parent);
+	EXPECT_EQ(1, config.GetNode(2).parent);
+	EXPECT_EQ(0, config.GetNode(3).parent);
+	EXPECT_EQ(3, config.GetNode(4).parent);
+}

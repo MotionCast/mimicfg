@@ -6,6 +6,7 @@ set(
 	${PROJECT_SOURCE_DIR}/include/mimicfg/ICEConfig.h
 	${PROJECT_SOURCE_DIR}/include/mimicfg/KalmanConfig.h
 	${PROJECT_SOURCE_DIR}/include/mimicfg/SignalerConfig.h
+	${PROJECT_SOURCE_DIR}/include/mimicfg/NodesConfig.h
 )
 
 ### TARGET
