@@ -58,6 +58,7 @@ namespace mocast {
 		std::vector<double>& MeasurementNoise() { return kalman_.measurement_noise; }
 
 		// Nodes Config
+		std::vector<Node> GetNodes() { return nodes_.nodes; }
 		Node GetNode(unsigned int index = 0) { return nodes_[index]; }
 		unsigned int NodeCount() { return nodes_.Size(); }
 

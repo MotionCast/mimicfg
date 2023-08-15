@@ -13,7 +13,7 @@
 namespace mocast {
 
 	/**
-	 * @brief Contains data to setup a single MIMU node
+	 * @brief Contains data to setup a single node
 	 */
 	struct Node {
 		unsigned int id = 0;

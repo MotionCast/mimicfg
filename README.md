@@ -11,6 +11,53 @@ A custom configuration module using [`toml11`][toml11] to read initial settings 
 - [googletest][gtest]
 
 
+## Sections
+
+### Signaling Server
+
+```toml
+[signaling]
+ip = "0.0.0.0"
+port = 8000
+local = ""
+remote = ""
+```
+
+
+### ICE Servers
+
+```toml
+[ice]
+urls = [
+  "stun.stunprotocol.org:3478",
+  "stun.l.google.com:19302"
+]
+```
+
+### Kalman
+
+```toml
+[kalman]
+process_noise = [ 0.1, 0.1, 0.1, 0.1, 0.1, 0.1 ]
+estimate_error = [ 500.0, 500.0, 500.0, 500.0, 500.0, 500.0 ]
+measurement_noise = [ 0.250, 0.250, 0.250, 0.009, 0.009, 0.009 ]
+```
+
+### Nodes
+
+```toml
+[[nodes]]
+id = 0
+parent = 0
+name = "ROOT"
+
+[[nodes]]
+id = 1
+parent = 0
+name = "RARM"
+```
+
+
 ## Build
 
 ```bash
