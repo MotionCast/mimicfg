@@ -61,26 +61,31 @@ TEST(UserConfigTest, BasicNodesConfig) {
 		[[nodes]]
 		id = 0
 		parent = 0
+		serial = "SERIAL1"
 		name = "ROOT"
 
 		[[nodes]]
 		id = 1
 		parent = 0
+		serial = "SERIAL2"
 		name = "RARM"
 
 		[[nodes]]
 		id = 2
 		parent = 1
+		serial = "SERIAL3"
 		name = "RHAND"
 
 		[[nodes]]
 		id = 3
 		parent = 0
+		serial = "SERIAL4"
 		name = "LARM"
 
 		[[nodes]]
 		id = 4
 		parent = 3
+		serial = "SERIAL5"
 		name = "LHAND"
 	)"_toml);
 
